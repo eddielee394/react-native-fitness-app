@@ -1,11 +1,15 @@
 import React, { Component } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
-import { getMetricMetaInfo, timeToString } from "../utils/helpers";
-import UdaciSlider from "./UdaciSlider";
-import UdaciSteppers from "./UdaciSteppers";
-import DateHeader from "./DateHeader";
+import {
+  getDailyReminderValue,
+  getMetricMetaInfo,
+  timeToString
+} from "../../utils/helpers";
+import { UdaciSlider, UdaciSteppers, DateHeader, TextButton } from "../UI";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import * as Actions from "./store/actions";
 import { Ionicons } from "@expo/vector-icons";
-import TextButton from "./TextButton";
 
 class AddEntry extends Component {
   state = {
@@ -49,6 +53,9 @@ class AddEntry extends Component {
   submit = () => {
     const key = timeToString();
     const entry = this.state;
+
+    this.props.addEntry({ [key]: entry });
+
     this.setState(() => ({
       run: 0,
       bike: 0,
@@ -56,15 +63,17 @@ class AddEntry extends Component {
       sleep: 0,
       eat: 0
     }));
-    //todo update redux
+
     //todo navigate to home
-    //todo save to db
     //todo clear local notification
   };
 
   reset = () => {
     const key = timeToString();
-    //todo update redux
+
+    this.props.addEntry({
+      [key]: getDailyReminderValue()
+    });
     //todo navigate to home
     //todo save to db
   };
@@ -112,4 +121,26 @@ class AddEntry extends Component {
   }
 }
 
-export default AddEntry;
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(
+    {
+      getEntries: Actions.getEntries,
+      addEntry: Actions.addEntry
+    },
+    dispatch
+  );
+}
+
+function mapStateToProps({ entries }, state) {
+  const key = timeToString();
+
+  return {
+    entries: entries,
+    alreadyLogged: state[key] && typeof state[key].today === "undefined"
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AddEntry);
