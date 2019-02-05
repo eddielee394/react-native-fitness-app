@@ -1,13 +1,17 @@
 import React from "react";
-import { View, Text, StyleSheet, Slider } from "react-native";
-import AddEntry from "./components/AddEntry";
+import { StyleSheet, View } from "react-native";
+import { AddEntry } from "./components/Entries";
+import { Provider } from "react-redux";
+import store from "./store";
 
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <AddEntry />
-      </View>
+      <Provider store={store}>
+        <View style={styles.container}>
+          <AddEntry />
+        </View>
+      </Provider>
     );
   }
 }
