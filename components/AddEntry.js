@@ -4,14 +4,8 @@ import { getMetricMetaInfo, timeToString } from "../utils/helpers";
 import UdaciSlider from "./UdaciSlider";
 import UdaciSteppers from "./UdaciSteppers";
 import DateHeader from "./DateHeader";
-
-function SubmitBtn({ onPress }) {
-  return (
-    <TouchableOpacity onPress={onPress}>
-      <Text>Submit</Text>
-    </TouchableOpacity>
-  );
-}
+import { Ionicons } from "@expo/vector-icons";
+import TextButton from "./TextButton";
 
 class AddEntry extends Component {
   state = {
@@ -68,8 +62,23 @@ class AddEntry extends Component {
     //todo clear local notification
   };
 
+  reset = () => {
+    const key = timeToString();
+    //todo update redux
+    //todo navigate to home
+    //todo save to db
+  };
+
   render() {
     const metaInfo = getMetricMetaInfo();
+    if (this.props.alreadyLogged) {
+      return (
+        <View>
+          <Ionicons name="md-happy" size={100} />
+          <TextButton onPress={this.reset}>Reset</TextButton>
+        </View>
+      );
+    }
 
     return (
       <View>
@@ -97,7 +106,7 @@ class AddEntry extends Component {
             </View>
           );
         })}
-        <SubmitBtn onPress={this.submit} />
+        <TextButton onPress={this.submit}>Submit</TextButton>
       </View>
     );
   }
