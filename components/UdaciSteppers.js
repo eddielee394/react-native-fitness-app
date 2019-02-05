@@ -1,14 +1,31 @@
-import React, { Component } from "react";
-import { View, Text } from "react-native";
+import React from "react";
+import { Text, View, TouchableOpacity } from "react-native";
+import { FontAwesome, Entypo } from "@expo/vector-icons";
 
-class UdaciSteppers extends Component {
-  render() {
-    return (
+const UdaciSteppers = ({
+  max,
+  unit,
+  step,
+  value,
+  onIncrement,
+  onDecrement
+}) => {
+  return (
+    <View>
       <View>
-        <Text>UdaciSteppers</Text>
+        <TouchableOpacity onPress={onDecrement}>
+          <FontAwesome name="minus" size={30} color={"black"} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={onIncrement}>
+          <FontAwesome name="plus" size={30} color={"black"} />
+        </TouchableOpacity>
       </View>
-    );
-  }
-}
+      <View>
+        <Text>{value}</Text>
+        <Text>{unit}</Text>
+      </View>
+    </View>
+  );
+};
 
 export default UdaciSteppers;
