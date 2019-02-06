@@ -131,12 +131,13 @@ function mapDispatchToProps(dispatch) {
   );
 }
 
-function mapStateToProps({ entries }, state) {
+function mapStateToProps({ entries }) {
   const key = timeToString();
 
   return {
-    entries: entries,
-    alreadyLogged: state[key] && typeof state[key].today === "undefined"
+    entries: entries.data,
+    alreadyLogged:
+      entries.data[key] && typeof entries.data[key].today === "undefined"
   };
 }
 

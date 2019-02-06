@@ -1,6 +1,8 @@
 import * as Actions from "../actions";
 
-const initialState = {};
+const initialState = {
+  data: {}
+};
 /**
  * entries reducer
  * @param state
@@ -14,14 +16,14 @@ const entriesReducer = (state = initialState, action) => {
         //receive the state
         ...state,
         //merge the action
-        ...action.payload
+        data: action.payload
       };
     case Actions.ADD_ENTRY_SUCCESS:
       return {
         //receive the state
         ...state,
         //merge the action
-        ...action.payload
+        data: { ...state.data, ...action.payload }
       };
     default:
       return state;
