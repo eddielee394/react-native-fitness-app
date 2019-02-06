@@ -2,15 +2,18 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import { AddEntry } from "./components/Entries";
 import { Provider } from "react-redux";
-import store from "./store";
+import { store, persistor } from "./store";
+import { PersistGate } from "redux-persist/integration/react";
 
 export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <View style={styles.container}>
-          <AddEntry />
-        </View>
+        <PersistGate loading={null} persistor={persistor}>
+          <View style={styles.container}>
+            <AddEntry />
+          </View>
+        </PersistGate>
       </Provider>
     );
   }
