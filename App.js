@@ -1,3 +1,9 @@
+if (__DEV__) {
+  import("./config/reactotronConfig").then(() =>
+    console.log("Reactotron Configured")
+  );
+}
+
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { AddEntry } from "./components/Entries";
@@ -12,6 +18,7 @@ export default class App extends React.Component {
         <PersistGate loading={null} persistor={persistor}>
           <View style={styles.container}>
             <AddEntry />
+            {console.log("process.env", process.env)}
           </View>
         </PersistGate>
       </Provider>
