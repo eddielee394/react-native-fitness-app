@@ -1,10 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
-import {
-  getDailyReminderValue,
-  getMetricMetaInfo,
-  timeToString
-} from "../../utils/helpers";
+import Helpers from "../../utils/helpers";
 import { UdaciSlider, UdaciSteppers, DateHeader, TextButton } from "../UI";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
@@ -22,7 +17,7 @@ class AddEntry extends Component {
   };
 
   increment = metric => {
-    const { max, step } = getMetricMetaInfo(metric);
+    const { max, step } = Helpers.getMetricMetaInfo(metric);
 
     this.setState(state => {
       const count = state[metric] + step;
@@ -34,7 +29,7 @@ class AddEntry extends Component {
   };
 
   decrement = metric => {
-    const { step } = getMetricMetaInfo(metric);
+    const { step } = Helpers.getMetricMetaInfo(metric);
 
     this.setState(state => {
       const count = state[metric] - step;
@@ -52,7 +47,7 @@ class AddEntry extends Component {
   };
 
   submit = () => {
-    const key = timeToString();
+    const key = Helpers.timeToString();
     const entry = this.state;
 
     this.props.addEntry({ [key]: entry });
@@ -70,17 +65,17 @@ class AddEntry extends Component {
   };
 
   reset = () => {
-    const key = timeToString();
+    const key = Helpers.timeToString();
 
     this.props.addEntry({
-      [key]: getDailyReminderValue()
+      [key]: Helpers.getDailyReminderValue()
     });
     //todo navigate to home
     //todo save to db
   };
 
   render() {
-    const metaInfo = getMetricMetaInfo();
+    const metaInfo = Helpers.getMetricMetaInfo();
     if (this.props.alreadyLogged) {
       return (
         <View>
@@ -133,7 +128,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps({ entries }) {
-  const key = timeToString();
+  const key = Helpers.timeToString();
 
   return {
     entries: entries.data,
