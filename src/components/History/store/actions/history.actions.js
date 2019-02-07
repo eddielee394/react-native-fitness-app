@@ -1,4 +1,4 @@
-import Api from "../../../../utils/Api";
+import { Api } from "../../../../utils";
 import * as EntryActions from "../../../../components/Entries/store/actions";
 
 export const getCalendarResults = () => dispatch => {

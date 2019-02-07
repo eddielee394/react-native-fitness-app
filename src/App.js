@@ -3,8 +3,8 @@ if (__DEV__) {
     console.log("Reactotron Configured")
   );
 }
-
-import React from "react";
+import { registerRootComponent } from "expo";
+import React, { Component } from "react";
 import { StyleSheet, View } from "react-native";
 import { AddEntry } from "./components/Entries";
 import { History } from "./components/History";
@@ -27,7 +27,7 @@ import { AppLoading } from "expo";
 import material from "./config/native-base-theme/variables/material";
 import getTheme from "./config/native-base-theme/components";
 
-export default class App extends React.Component {
+class App extends Component {
   state = {
     isReady: false
   };
@@ -92,3 +92,5 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   }
 });
+
+export default registerRootComponent(App);
