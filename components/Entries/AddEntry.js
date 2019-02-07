@@ -5,7 +5,20 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as Actions from "./store/actions";
 import { Ionicons } from "@expo/vector-icons";
-import { Card, CardItem } from "native-base";
+import {
+  Button,
+  Card,
+  CardItem,
+  Grid,
+  Row,
+  Col,
+  List,
+  ListItem,
+  Left,
+  Body,
+  Right,
+  Text
+} from "native-base";
 
 class AddEntry extends Component {
   state = {
@@ -71,48 +84,62 @@ class AddEntry extends Component {
       [key]: Helpers.getDailyReminderValue()
     });
     //todo navigate to home
-    //todo save to db
   };
 
   render() {
     const metaInfo = Helpers.getMetricMetaInfo();
     if (this.props.alreadyLogged) {
       return (
-        <View>
+        <Col
+          style={{
+            justifyContent: "center",
+            justifyItems: "center",
+            alignItems: "center",
+            alignContent: "center"
+          }}
+        >
           <Ionicons name="md-happy" size={100} />
           <TextButton onPress={this.reset}>Reset</TextButton>
-        </View>
+        </Col>
       );
     }
 
     return (
-      <Card>
-        <DateHeader date={new Date().toLocaleDateString()} />
-        {Object.keys(metaInfo).map(key => {
-          const { getIcon, type, ...rest } = metaInfo[key];
-          const value = this.state[key];
+      <Col>
+        <Card>
+          <CardItem header>
+            <DateHeader date={new Date().toLocaleDateString()} />
+          </CardItem>
+          {Object.keys(metaInfo).map(key => {
+            const { getIcon, type, ...rest } = metaInfo[key];
+            const value = this.state[key];
 
-          return (
-            <CardItem key={key}>
-              {getIcon()}
-              {type === "slider" ? (
-                <UdaciSlider
-                  value={value}
-                  onChange={value => this.slide(key, value)}
-                  {...rest}
-                />
-              ) : (
-                <UdaciSteppers
-                  value={value}
-                  onIncrement={() => this.increment(key)}
-                  onDecrement={() => this.decrement(key)}
-                />
-              )}
-            </CardItem>
-          );
-        })}
-        <TextButton onPress={this.submit}>Submit</TextButton>
-      </Card>
+            return (
+              <CardItem avatar key={key}>
+                {getIcon()}
+                <Right>
+                  {type === "slider" ? (
+                    <UdaciSlider
+                      value={value}
+                      onChange={value => this.slide(key, value)}
+                      {...rest}
+                    />
+                  ) : (
+                    <UdaciSteppers
+                      value={value}
+                      onIncrement={() => this.increment(key)}
+                      onDecrement={() => this.decrement(key)}
+                    />
+                  )}
+                </Right>
+              </CardItem>
+            );
+          })}
+        </Card>
+        <Button block onPress={this.submit}>
+          <Text>Submit</Text>
+        </Button>
+      </Col>
     );
   }
 }
