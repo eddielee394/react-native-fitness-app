@@ -7,6 +7,7 @@ if (__DEV__) {
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { AddEntry } from "./components/Entries";
+import { History } from "./components/History";
 import { Provider } from "react-redux";
 import { store, persistor } from "./store";
 import { PersistGate } from "redux-persist/integration/react";
@@ -56,7 +57,8 @@ export default class App extends React.Component {
             <Container>
               <Header />
               <Content>
-                <AddEntry />
+                <History />
+                {/*<AddEntry />*/}
               </Content>
               <Footer>
                 <FooterTab>
