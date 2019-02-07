@@ -10,6 +10,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as Actions from "./store/actions";
 import { Ionicons } from "@expo/vector-icons";
+import { Card, CardItem } from "native-base";
 
 class AddEntry extends Component {
   state = {
@@ -90,14 +91,14 @@ class AddEntry extends Component {
     }
 
     return (
-      <View>
+      <Card>
         <DateHeader date={new Date().toLocaleDateString()} />
         {Object.keys(metaInfo).map(key => {
           const { getIcon, type, ...rest } = metaInfo[key];
           const value = this.state[key];
 
           return (
-            <View key={key}>
+            <CardItem key={key}>
               {getIcon()}
               {type === "slider" ? (
                 <UdaciSlider
@@ -112,11 +113,11 @@ class AddEntry extends Component {
                   onDecrement={() => this.decrement(key)}
                 />
               )}
-            </View>
+            </CardItem>
           );
         })}
         <TextButton onPress={this.submit}>Submit</TextButton>
-      </View>
+      </Card>
     );
   }
 }
