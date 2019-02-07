@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Helpers from "../../utils/helpers";
+import Helpers from "../../utils/Helpers";
 import { UdaciSlider, UdaciSteppers, DateHeader, TextButton } from "../UI";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
