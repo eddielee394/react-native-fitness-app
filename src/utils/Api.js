@@ -2,11 +2,8 @@ import { formatCalendarResults } from "./_calendar";
 
 class Api {
   static fetchCalendarResults(data) {
-    const response = new Promise((resolve, reject) => {
-      if (!data) {
-        const error = "No data available";
-        reject(error);
-      }
+    console.log("API.fetchCalendarResults", data);
+    const response = new Promise((resolve) => {
       resolve(formatCalendarResults(data));
     });
 

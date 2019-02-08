@@ -7,7 +7,7 @@ import { registerRootComponent } from "expo";
 import React, { Component } from "react";
 import { StyleSheet, View } from "react-native";
 import { AddEntry } from "./components/Entries";
-import { History } from "./components/History";
+import { Calendar } from "./components/Calendar";
 import { Provider } from "react-redux";
 import { store, persistor } from "./store";
 import { PersistGate } from "redux-persist/integration/react";
@@ -45,7 +45,7 @@ class App extends Component {
         <AppLoading
           startAsync={this.loadAssets}
           onFinish={() => this.setState({ isReady: true })}
-          onError={console.warn}
+          onError={console.error}
         />
       );
     }
@@ -57,7 +57,7 @@ class App extends Component {
             <Container>
               <Header />
               <Content>
-                <History />
+                <Calendar />
                 {/*<AddEntry />*/}
               </Content>
               <Footer>

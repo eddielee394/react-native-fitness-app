@@ -1,11 +1,6 @@
 import React from "react";
-import { View } from "react-native";
-import {
-  FontAwesome,
-  MaterialIcons,
-  MaterialCommunityIcons
-} from "@expo/vector-icons";
-import { black } from "./colors";
+import { Icon } from "native-base";
+import { black, white, blue, lightPurp, orange, pink, red } from "./colors";
 
 class Helpers {
   static getMetricMetaInfo(metric) {
@@ -16,11 +11,15 @@ class Helpers {
         unit: "miles",
         step: 1,
         type: "steppers",
+        backgroundColor: red,
         getIcon() {
           return (
-            <View>
-              <MaterialIcons name="directions-run" color={black} size={35} />
-            </View>
+            <Icon
+              type="MaterialIcons"
+              name="directions-run"
+              color={white}
+              size={35}
+            />
           );
         }
       },
@@ -30,11 +29,15 @@ class Helpers {
         unit: "miles",
         step: 1,
         type: "steppers",
+        backgroundColor: orange,
         getIcon() {
           return (
-            <View>
-              <MaterialCommunityIcons name="bike" color={black} size={32} />
-            </View>
+            <Icon
+              type="MaterialCommunityIcons"
+              name="bike"
+              color={white}
+              size={32}
+            />
           );
         }
       },
@@ -44,11 +47,15 @@ class Helpers {
         unit: "meters",
         step: 100,
         type: "steppers",
+        backgroundColor: blue,
         getIcon() {
           return (
-            <View>
-              <MaterialCommunityIcons name="swim" color={black} size={35} />
-            </View>
+            <Icon
+              type="MaterialCommunityIcons"
+              name="swim"
+              color={white}
+              size={35}
+            />
           );
         }
       },
@@ -58,12 +65,9 @@ class Helpers {
         unit: "hours",
         step: 1,
         type: "slider",
+        backgroundColor: lightPurp,
         getIcon() {
-          return (
-            <View>
-              <FontAwesome name="bed" color={black} size={30} />
-            </View>
-          );
+          return <Icon type="FontAwesome" name="bed" color={white} size={30} />;
         }
       },
       eat: {
@@ -72,11 +76,15 @@ class Helpers {
         unit: "rating",
         step: 1,
         type: "slider",
+        backgroundColor: pink,
         getIcon() {
           return (
-            <View>
-              <MaterialCommunityIcons name="food" color={black} size={35} />
-            </View>
+            <Icon
+              type="MaterialCommunityIcons"
+              name="food"
+              color={white}
+              size={35}
+            />
           );
         }
       }

@@ -14,7 +14,7 @@ function setDummyData() {
   let dummyData = {};
   const timestamp = Date.now();
 
-  for (let i = -183; i < 0; i++) {
+  for (let i = -10; i < 0; i++) {
     const time = timestamp + i * 24 * 60 * 60 * 1000;
     const strTime = Helpers.timeToString(time);
     dummyData[strTime] =
@@ -30,7 +30,7 @@ function setDummyData() {
   }
 
   AsyncStorage.setItem(CALENDAR_STORAGE_KEY, JSON.stringify(dummyData));
-
+  console.log("setDummyData", dummyData);
   return dummyData;
 }
 
@@ -38,7 +38,7 @@ function setMissingDates(dates) {
   const length = Object.keys(dates).length;
   const timestamp = Date.now();
 
-  for (let i = -183; i < 0; i++) {
+  for (let i = -10; i < 0; i++) {
     const time = timestamp + i * 24 * 60 * 60 * 1000;
     const strTime = Helpers.timeToString(time);
 
@@ -51,7 +51,6 @@ function setMissingDates(dates) {
 }
 
 export function formatCalendarResults(results) {
-  return results === null
-    ? setDummyData()
-    : setMissingDates(JSON.parse(results));
+  console.log("formatCalendarResults", results);
+  return results === null ? setDummyData() : setMissingDates(results);
 }
