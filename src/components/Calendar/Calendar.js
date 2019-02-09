@@ -1,10 +1,17 @@
 import React, { Component } from "react";
-import { View } from "react-native";
 import { bindActionCreators } from "redux";
 import * as Actions from "./store/actions";
 import { connect } from "react-redux";
 import UdaciFitnessCalendar from "udacifitness-calendar";
-import { Card, CardItem, Icon, Right, Text, Button } from "native-base";
+import {
+  Card,
+  CardItem,
+  Icon,
+  Right,
+  Text,
+  Button,
+  Content
+} from "native-base";
 import { DateHeader } from "../../components/UI";
 import { Helpers } from "../../utils";
 
@@ -13,7 +20,7 @@ class Calendar extends Component {
     this.props.getCalendarResults(this.props.entries);
   }
 
-  renderItem = ({ today, ...metrics }, formattedDate, key) => (
+  renderItem = ({ today, ...metrics }, formattedDate) => (
     <Card>
       <CardItem header>
         <DateHeader date={formattedDate} />
@@ -71,11 +78,13 @@ class Calendar extends Component {
     const { entries } = this.props;
 
     return (
-      <UdaciFitnessCalendar
-        items={entries}
-        renderItem={this.renderItem}
-        renderEmptyDate={this.renderEmptyDate}
-      />
+      <Content>
+        <UdaciFitnessCalendar
+          items={entries}
+          renderItem={this.renderItem}
+          renderEmptyDate={this.renderEmptyDate}
+        />
+      </Content>
     );
   }
 }

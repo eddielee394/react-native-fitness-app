@@ -3,29 +3,26 @@ if (__DEV__) {
     console.log("Reactotron Configured")
   );
 }
-import { registerRootComponent } from "expo";
+import { AppLoading, registerRootComponent } from "expo";
 import React, { Component } from "react";
-import { StyleSheet, View } from "react-native";
-import { AddEntry } from "./components/Entries";
-import { Calendar } from "./components/Calendar";
 import { Provider } from "react-redux";
-import { store, persistor } from "./store";
+import { persistor, store } from "./store";
 import { PersistGate } from "redux-persist/integration/react";
 import {
+  Button,
   Container,
-  Header,
-  Content,
   Footer,
   FooterTab,
-  Button,
+  Header,
   Icon,
-  Text,
-  StyleProvider
+  StyleProvider,
+  Text
 } from "native-base";
 import { Loader } from "./components/UI";
-import { AppLoading } from "expo";
 import material from "./config/native-base-theme/variables/material";
 import getTheme from "./config/native-base-theme/components";
+import { Actions, Router } from "react-native-router-flux";
+import AppNavigator from "./navigation/AppNavigator";
 
 class App extends Component {
   state = {
@@ -56,17 +53,24 @@ class App extends Component {
           <StyleProvider style={getTheme(material)}>
             <Container>
               <Header />
-              <Content>
-                <Calendar />
-                {/*<AddEntry />*/}
-              </Content>
+              <Router>{AppNavigator}</Router>
               <Footer>
                 <FooterTab>
-                  <Button vertical>
+                  <Button
+                    vertical
+                    onPress={() => {
+                      Actions.calendar();
+                    }}
+                  >
                     <Icon name="md-today" />
-                    <Text>History</Text>
+                    <Text>Calendar</Text>
                   </Button>
-                  <Button vertical>
+                  <Button
+                    vertical
+                    onPress={() => {
+                      Actions.addEntry();
+                    }}
+                  >
                     <Icon name="ios-add-circle" />
                     <Text>Add Entry</Text>
                   </Button>
@@ -83,14 +87,5 @@ class App extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
-  }
-});
 
 export default registerRootComponent(App);

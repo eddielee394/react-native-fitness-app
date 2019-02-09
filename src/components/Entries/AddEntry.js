@@ -9,6 +9,7 @@ import {
   Button,
   Card,
   CardItem,
+  Content,
   Grid,
   Row,
   Col,
@@ -90,56 +91,60 @@ class AddEntry extends Component {
     const metaInfo = Helpers.getMetricMetaInfo();
     if (this.props.alreadyLogged) {
       return (
-        <Col
-          style={{
-            justifyContent: "center",
-            justifyItems: "center",
-            alignItems: "center",
-            alignContent: "center"
-          }}
-        >
-          <Ionicons name="md-happy" size={100} />
-          <TextButton onPress={this.reset}>Reset</TextButton>
-        </Col>
+        <Content>
+          <Col
+            style={{
+              justifyContent: "center",
+              justifyItems: "center",
+              alignItems: "center",
+              alignContent: "center"
+            }}
+          >
+            <Ionicons name="md-happy" size={100} />
+            <TextButton onPress={this.reset}>Reset</TextButton>
+          </Col>
+        </Content>
       );
     }
 
     return (
-      <Col>
-        <Card>
-          <CardItem header>
-            <DateHeader date={new Date().toLocaleDateString()} />
-          </CardItem>
-          {Object.keys(metaInfo).map(key => {
-            const { getIcon, type, ...rest } = metaInfo[key];
-            const value = this.state[key];
+      <Content>
+        <Col>
+          <Card>
+            <CardItem header>
+              <DateHeader date={new Date().toLocaleDateString()} />
+            </CardItem>
+            {Object.keys(metaInfo).map(key => {
+              const { getIcon, type, ...rest } = metaInfo[key];
+              const value = this.state[key];
 
-            return (
-              <CardItem avatar key={key}>
-                {getIcon()}
-                <Right>
-                  {type === "slider" ? (
-                    <UdaciSlider
-                      value={value}
-                      onChange={value => this.slide(key, value)}
-                      {...rest}
-                    />
-                  ) : (
-                    <UdaciSteppers
-                      value={value}
-                      onIncrement={() => this.increment(key)}
-                      onDecrement={() => this.decrement(key)}
-                    />
-                  )}
-                </Right>
-              </CardItem>
-            );
-          })}
-        </Card>
-        <Button block onPress={this.submit}>
-          <Text>Submit</Text>
-        </Button>
-      </Col>
+              return (
+                <CardItem avatar key={key}>
+                  {getIcon()}
+                  <Right>
+                    {type === "slider" ? (
+                      <UdaciSlider
+                        value={value}
+                        onChange={value => this.slide(key, value)}
+                        {...rest}
+                      />
+                    ) : (
+                      <UdaciSteppers
+                        value={value}
+                        onIncrement={() => this.increment(key)}
+                        onDecrement={() => this.decrement(key)}
+                      />
+                    )}
+                  </Right>
+                </CardItem>
+              );
+            })}
+          </Card>
+          <Button block onPress={this.submit}>
+            <Text>Submit</Text>
+          </Button>
+        </Col>
+      </Content>
     );
   }
 }
